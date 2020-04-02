@@ -1,5 +1,16 @@
 const User = require("../../models/user");
 
+const getAllUsers = () => {
+  return new Promise((resolve, reject) => {
+    User.find({ role: "USER_ROLE" }, (error, usersDB) => {
+      if (error)
+        return reject([])
+      else
+        return resolve(usersDB);
+    });
+  });
+}
+
 const countUsers = () => {
   return new Promise((resolve, reject) => {
     User.where({ role: "USER_ROLE" }).countDocuments((error, numberUsers) => {
@@ -80,6 +91,7 @@ const getPrevAndNext = (req, maxPage) => {
 }
 
 module.exports = {
+  getAllUsers,
   countUsers,
   countPages,
   getUsers,
