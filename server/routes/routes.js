@@ -3,6 +3,7 @@ const app = express();
 
 //users routes
 app.use(require('./auth'));
+app.use(require("./courses"));
 
 //admin routes
 app.use(require("./admin/users"));
