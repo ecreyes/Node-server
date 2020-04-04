@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { verifyToken, verifyAdminRole } = require("../../middlewares/auth");
-const { getAllUsers, countUsers, countPages, getUsers, getPrevAndNext } = require("../../services/admin/usersService");
+const { getAllUsers, createUserByAdmin, countUsers, countPages, getUsers, getPrevAndNext } = require("../../services/admin/usersService");
 const { disableUser, enableUser, changePasswordUser, updateFields } = require("../../services/admin/updateUserService");
 
 
@@ -29,6 +29,16 @@ app.get("/users_all", [verifyToken, verifyAdminRole], async (req, res) => {
     return res.json({ ok: true, users });
   } catch (error) {
     return res.json({ ok: false, users: [] });
+  }
+});
+
+app.post("/add_user", [verifyToken, verifyAdminRole], async (req, res) => {
+  try {
+    let body = req.body;
+    let data = await createUserByAdmin(body.username, body.email, body.password);
+    return res.status(200).json({ok:true,user:data.userDB});
+  } catch (error) {
+    return res.status(400).json({ok:false,user:{}});
   }
 });
 

@@ -1,4 +1,5 @@
 const User = require("../../models/user");
+const bcrypt = require('bcryptjs');
 
 const getAllUsers = () => {
   return new Promise((resolve, reject) => {
@@ -8,6 +9,23 @@ const getAllUsers = () => {
       else
         return resolve(usersDB);
     });
+  });
+}
+
+const createUserByAdmin = (username, email, password) => {
+  return new Promise((resolve, reject) => {
+    let newUser = new User({
+      username,
+      email,
+      password: bcrypt.hashSync(password, 10)
+    });
+    newUser.save((error, userDB) => {
+      if (error)
+        return reject({ ok: false, userDB: {}, message: error })
+      else
+        return resolve({ ok: true, userDB })
+    });
+
   });
 }
 
@@ -92,6 +110,7 @@ const getPrevAndNext = (req, maxPage) => {
 
 module.exports = {
   getAllUsers,
+  createUserByAdmin,
   countUsers,
   countPages,
   getUsers,
