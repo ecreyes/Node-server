@@ -15,6 +15,16 @@ const addCourse = (title, description) => {
   });
 }
 
+const addProfessorToCourse = (idCourse,idProfessor)=>{
+  return new Promise((resolve,reject)=>{
+    Course.findOneAndUpdate({_id:idCourse},{ "$push": { "professors": idProfessor } },{new:true},(error,courseDB)=>{
+      if (error) return reject({});
+      else return resolve(courseDB);
+    });
+  });
+}
+
 module.exports = {
-  addCourse
+  addCourse,
+  addProfessorToCourse
 }
