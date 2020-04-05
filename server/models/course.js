@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
+  date: { type: Date, default: Date.now },
   professors: [{ type: Schema.Types.ObjectId, ref: "User", required: false }],
   students: [{ type: Schema.Types.ObjectId, ref: "User", required: false }]
 });
