@@ -8,5 +8,6 @@ app.use(require("./courses"));
 //admin routes
 app.use(require("./admin/users"));
 app.use(require("./admin/courses"));
+app.use(require("./admin/categories"));
 
 module.exports = app;

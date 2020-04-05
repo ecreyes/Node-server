@@ -2,7 +2,7 @@ const Course = require("../models/course");
 
 const getAllCourses = () => {
   return new Promise((resolve, reject) => {
-    Course.find().populate("professors").populate("students").exec((error, coursesDB) => {
+    Course.find().populate("professors").populate("students").populate("category").exec((error, coursesDB) => {
       if (error)
         return reject([])
       else

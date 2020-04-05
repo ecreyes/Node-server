@@ -6,7 +6,7 @@ const { addCourse, addProfessorToCourse, removeProfessorToCoure } = require("../
 app.post("/add_course", [verifyToken, verifyAdminRole], async (req, res) => {
   try {
     let body = req.body;
-    let courseDB = await addCourse(body.title, body.description);
+    let courseDB = await addCourse(body.title, body.description,body.idCategory);
     return res.json({ ok: true, courseDB });
   } catch (error) {
     return res.json({ ok: false, courseDB: {} });

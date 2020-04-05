@@ -1,10 +1,11 @@
 const Course = require("../../models/course");
 
-const addCourse = (title, description) => {
+const addCourse = (title, description,idCategory) => {
   return new Promise((resolve, reject) => {
     let newCourse = new Course({
       title,
-      description
+      description,
+      category:idCategory
     });
     newCourse.save((error, courseDB) => {
       if (error)
